@@ -77,8 +77,46 @@ const getBookByIdHandler = (request, handler) => {
   }).code(404);
 };
 
+const editBookByIdHandler = (request, handler) => {
+  const { bookId } = request.params;
+  const {
+    name, year, author, summary, publisher, pageCount, readPage, reading,
+  } = request.payload;
+
+  const index = books.findIndex((book) => book.id === bookId);
+  if (index === -1) {
+    return handler.response({
+      status: 'fail',
+      message: 'Gagal memperbarui buku. Id tidak ditemukan',
+    }).code(404);
+  }
+
+  const finished = pageCount === readPage;
+  const updatedAt = new Date().toISOString();
+
+  books[index] = {
+    ...books[index],
+    name,
+    year,
+    author,
+    summary,
+    publisher,
+    pageCount,
+    readPage,
+    finished,
+    reading,
+    updatedAt,
+  };
+
+  return handler.response({
+    status: 'success',
+    message: 'Buku berhasil diperbarui',
+  }).code(200);
+};
+
 module.exports = {
   addBookHandler,
   getAllBooksHandler,
-  getBookByIdHandler
+  getBookByIdHandler,
+  editBookByIdHandler
 };

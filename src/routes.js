@@ -2,13 +2,15 @@
 const {
   addBookHandler,
   getAllBooksHandler,
-  getBookByIdHandler
+  getBookByIdHandler,
+  editBookByIdHandler
 } = require('./handler');
 
 const {
   failSchema,
   payloadSchema,
   querySchema,
+  successSchema,
   successCreatedSchema,
   successGetAllBooksSchema,
   successGetBookByIdSchema
@@ -68,6 +70,29 @@ const routes = [
           200: successGetBookByIdSchema,
           404: failSchema,
         }
+      }
+    }
+  },
+  {
+    method: 'PUT',
+    path: '/books/{bookId}',
+    handler: editBookByIdHandler,
+    options: {
+      validate: {
+        payload: payloadSchema,
+        failAction: (_, handler, error) => {
+          return handler.response({
+            status: 'fail',
+            message: `Gagal memperbarui buku. ${error.message}`,
+          }).code(400).takeover();
+        },
+      },
+      response: {
+        status: {
+          200: successSchema,
+          400: failSchema,
+          404: failSchema,
+        },
       }
     }
   },
