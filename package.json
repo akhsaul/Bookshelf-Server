@@ -1,0 +1,40 @@
+{
+  "name": "bookshelf-server",
+  "version": "1.0.0",
+  "description": "A Bookshelf Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "start-dev": "nodemon src/server.js",
+    "lint": "eslint src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akhsaul/Bookshelf-Server.git"
+  },
+  "author": "Akhsaul (aka Ikhsan Maulana)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/akhsaul/Bookshelf-Server/issues"
+  },
+  "homepage": "https://github.com/akhsaul/Bookshelf-Server#readme",
+  "keywords": [
+    "bookshelf",
+    "server",
+    "nodejs",
+    "hapi",
+    "api"
+  ],
+  "dependencies": {
+    "@hapi/hapi": "^21.4.0",
+    "joi": "^17.13.3",
+    "nanoid": "^3.3.11"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.24.0",
+    "eslint": "^9.24.0",
+    "eslint-config-dicodingacademy": "^0.9.4",
+    "globals": "^16.0.0",
+    "nodemon": "^3.1.9"
+  }
+}
