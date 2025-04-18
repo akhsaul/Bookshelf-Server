@@ -1,13 +1,23 @@
 
 const {
   addBookHandler,
+  getAllBooksHandler
 } = require('./handler');
 
 const {
   failSchema,
   payloadSchema,
+  querySchema,
   successCreatedSchema,
+  successGetAllBooksSchema
 } = require('./schema');
+
+const responseFailAction = (_, handler, error) => {
+  return handler.response({
+    status: 'fail',
+    message: error.message,
+  }).code(400).takeover();
+};
 
 const routes = [
   {
@@ -30,6 +40,19 @@ const routes = [
           400: failSchema,
         },
       }
+    }
+  },
+  {
+    method: 'GET',
+    path: '/books',
+    handler: getAllBooksHandler,
+    options: {
+      response: {
+        failAction: responseFailAction,
+        status: {
+          200: successGetAllBooksSchema
+        },
+      },
     }
   },
 ];
