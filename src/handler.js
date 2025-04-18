@@ -47,12 +47,19 @@ const addBookHandler = (request, handler) => {
 };
 
 const getAllBooksHandler = (request, handler) => {
-  let { name } = request.query;
+  let { name, reading } = request.query;
   let rules = (_) => true;
 
   if (name !== undefined) {
     name = name.toLowerCase();
     rules = (book) => book.name.toLowerCase().includes(name);
+  }
+
+  if (reading !== undefined) {
+    // data type of reading is string
+    // convert into number
+    reading = Number(reading);
+    rules = (book) => book.reading === (reading === 1);
   }
 
   return handler.response({
