@@ -52,6 +52,10 @@ const routes = [
     path: '/books',
     handler: getAllBooksHandler,
     options: {
+      validate: {
+        failAction: responseFailAction,
+        query: querySchema
+      },
       response: {
         failAction: responseFailAction,
         status: {
