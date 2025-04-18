@@ -47,10 +47,18 @@ const addBookHandler = (request, handler) => {
 };
 
 const getAllBooksHandler = (request, handler) => {
+  let { name } = request.query;
+  let rules = (_) => true;
+
+  if (name !== undefined) {
+    name = name.toLowerCase();
+    rules = (book) => book.name.toLowerCase().includes(name);
+  }
+
   return handler.response({
     status: 'success',
     data: {
-      books: books.map((book) => ({
+      books: books.filter(rules).map((book) => ({
         id: book.id,
         name: book.name,
         publisher: book.publisher,
