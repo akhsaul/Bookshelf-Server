@@ -1,7 +1,8 @@
 
 const {
   addBookHandler,
-  getAllBooksHandler
+  getAllBooksHandler,
+  getBookByIdHandler
 } = require('./handler');
 
 const {
@@ -9,7 +10,8 @@ const {
   payloadSchema,
   querySchema,
   successCreatedSchema,
-  successGetAllBooksSchema
+  successGetAllBooksSchema,
+  successGetBookByIdSchema
 } = require('./schema');
 
 const responseFailAction = (_, handler, error) => {
@@ -53,6 +55,20 @@ const routes = [
           200: successGetAllBooksSchema
         },
       },
+    }
+  },
+  {
+    method: 'GET',
+    path: '/books/{bookId}',
+    handler: getBookByIdHandler,
+    options: {
+      response: {
+        failAction: responseFailAction,
+        status: {
+          200: successGetBookByIdSchema,
+          404: failSchema,
+        }
+      }
     }
   },
 ];
