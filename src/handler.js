@@ -47,7 +47,7 @@ const addBookHandler = (request, handler) => {
 };
 
 const getAllBooksHandler = (request, handler) => {
-  let { name, reading } = request.query;
+  let { name, reading, finished } = request.query;
   let rules = (_) => true;
 
   if (name !== undefined) {
@@ -60,6 +60,13 @@ const getAllBooksHandler = (request, handler) => {
     // convert into number
     reading = Number(reading);
     rules = (book) => book.reading === (reading === 1);
+  }
+
+  if (finished !== undefined) {
+    // data type of reading is string
+    // convert into number
+    finished = Number(finished);
+    rules = (book) => book.finished === (finished === 1);
   }
 
   return handler.response({
