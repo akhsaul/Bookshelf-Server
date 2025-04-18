@@ -3,7 +3,8 @@ const {
   addBookHandler,
   getAllBooksHandler,
   getBookByIdHandler,
-  editBookByIdHandler
+  editBookByIdHandler,
+  deleteBookByIdHandler
 } = require('./handler');
 
 const {
@@ -91,6 +92,20 @@ const routes = [
         status: {
           200: successSchema,
           400: failSchema,
+          404: failSchema,
+        },
+      }
+    }
+  },
+  {
+    method: 'DELETE',
+    path: '/books/{bookId}',
+    handler: deleteBookByIdHandler,
+    options: {
+      response: {
+        failAction: responseFailAction,
+        status: {
+          200: successSchema,
           404: failSchema,
         },
       }
